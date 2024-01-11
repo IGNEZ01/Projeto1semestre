@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "struct_Pessoa.h"
+#include "struct_User.h"
 #include <time.h>
 #include "lib.h"
 #include "users.c"
