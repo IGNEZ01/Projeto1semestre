@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lib.c"
+#include "menu_Principal.c"
 
 int main()
 {
-    //chama o menu inicial da do programa
-    mainMenu();
+    // chama o menu inicial do programa
+    MainMenu();
 }

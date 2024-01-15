@@ -4,13 +4,14 @@
 #include <time.h>
 #include "struct_User.h"
 #include <time.h>
-#include "lib.h"
+#include "menu_principal.h"
 #include "users.c"
+#include "admin.c"
 
 void Login()
 {
-    // instanciar a struct user com o nome find_user.
-    user find_user;
+    // instanciar a struct user com o nome user.
+    User user;
 
     // limpa o terminal
     system("cls");
@@ -20,8 +21,6 @@ void Login()
     char password[20];
     char ch;
     int i = 0;
-    int id = 0;
-    int teste = 0;
 
     // instancia o ficheiro
     FILE *outfile;
@@ -81,124 +80,29 @@ void Login()
     printf("\t\t\t\t=======================================\n");
 
     // ciclo while responsavel por precorrer todo o ficheiro ate ser encontrada a informaçao pretendida
-    while (teste = fread(&find_user, sizeof(user), 1, outfile) != NULL)
+    while (fread(&user, sizeof(User), 1, outfile))
     {
 
         // condiçao de verificação para verificar o username e a password.
         // caso certo redireciona o utilizador para a pagina de menu de utilizador.
-        if (strcmp(find_user.nome_utilizador, username) == 0 && strcmp(find_user.password, password) == 0)
+        if (strcmp(user.nome_utilizador, username) == 0 && strcmp(user.password, password) == 0)
         {
-            id = find_user.id;
+            if (user.permicoes == 1)
+            {
+
+                printf("\nLogin successful.\n");
+                system("cls");
+                PAdmin(user.id);
+            }
+
             printf("\nLogin successful.\n");
             system("cls");
-            PMenuUser(id);
+            PMenuUser(user.id);
         }
     }
 }
 
-void PRegistarUser()
-{ // metodo para mostrar o ecra de registo de novo utilizador e escrever para o ficheiro "accounts.dat"
-
-    // instanciar a struct user com o nome find_user.
-    user new_user;
-
-    // limpa o terminal
-    system("cls");
-
-    // declaraçao de variaveis necessarias para a funçao
-    char ch;
-    int i = 0;
-
-    // escrita e leitura do "formulario" de registo
-    printf("Nome de Utilizador:\n");
-
-    scanf("%s", new_user.nome_utilizador);
-
-    printf("Primeiro e ultimo nome:\n");
-
-    scanf(" %[^\n]s", new_user.nome);
-
-    getchar();
-
-    printf("\nIdade:");
-
-    scanf("%d", &new_user.idade);
-
-    getchar();
-
-    printf("\nN.I.F.:");
-
-    scanf("%d", &new_user.nif);
-
-    getchar();
-
-    printf("\nEmail:\n");
-
-    gets(new_user.email);
-
-    printf("\npassword:\n");
-
-    // "scanf" para a password em que so aparecem "*"
-    while (1)
-    {
-        ch = getch();
-        if (ch == 13)
-        {
-            new_user.password[i] = '\0';
-            break;
-        }
-        else if (ch == 8)
-        {
-            if (i > 0)
-            {
-                i--;
-                printf("\b \b");
-            }
-        }
-        else if (ch == 9 || ch == 32)
-        {
-            continue;
-        }
-        else
-        {
-            new_user.password[i++] = ch;
-            printf("*");
-        }
-    }
-    // fim de "scanf" da password.
-
-    printf("\n");
-
-    // new_user.id = rand()%100;
-    new_user.id = (int)time(NULL);
-
-    // instancia o ficheiro
-    FILE *outfile;
-
-    // abre o ficheiro em modo de
-    outfile = fopen("accounts.dat", "a+");
-
-    // exceçao para qualquer erro ao abrir o ficheiro
-    if (outfile == NULL)
-    {
-        printf("Erro ao abrir ficheiro ");
-        exit(1);
-    }
-
-    // escreve texto para o ficheiro
-    if (fseek(outfile, 0, SEEK_SET) == 0)
-    {
-        printf("ponteiro movido");
-    }
-
-    // escreve a struct para o ficheiro
-    fwrite(&new_user, sizeof(user), 1, outfile);
-
-    // fecha o ficheiro
-    fclose(outfile);
-}
-
-void mainMenu()
+void MainMenu()
 { // funçao de mostra o menu inicial do sistema
 
     // limpa o terminal
@@ -243,11 +147,9 @@ void mainMenu()
             system("cls");
             printf("\n\t\t\t\t\tInsira uma opcao valida\n\n");
             system("pause");
-
             system("cls");
-            break;
+            return;
         }
     }
     system("pause");
-    return 0;
 }

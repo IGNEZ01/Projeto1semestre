@@ -3,27 +3,144 @@
 #include <string.h>
 #include <time.h>
 #include "struct_User.h"
-#include <time.h>
 #include "users.h"
+#include "auxiliar.c"
+#include "aluguer.c"
 
-void delay(int number_of_seconds)
-{
-    // Converting time into milli_seconds
-    int milli_seconds = 1000 * number_of_seconds;
 
-    // Storing start time
-    clock_t start_time = clock();
+// chave do sistema
+char chave_sistema[10] = "eYKoQFNc8N";
+char chave_inserida[10];
 
-    // looping till required time is not achieved
-    while (clock() < start_time + milli_seconds)
-        ;
+void PRegistarUser()
+{ // metodo para mostrar o ecra de registo de novo utilizador e escrever para o ficheiro "accounts.dat"
+
+    // instanciar a struct user com o nome find_user.
+    User user;
+
+    // limpa o terminal
+    system("cls");
+
+    // declaraçao de variaveis necessarias para a funçao
+    char ch;
+    int i = 0;
+
+    // escrita e leitura do "formulario" de registo
+    printf("Nome de Utilizador:\n");
+
+    scanf("%s", user.nome_utilizador);
+
+    printf("Primeiro e ultimo nome:\n");
+
+    scanf(" %[^\n]s", user.nome);
+
+    getchar();
+
+    printf("\nIdade:");
+
+    scanf("%d", &user.idade);
+
+    getchar();
+
+    printf("\nN.I.F.:");
+
+    scanf("%d", &user.nif);
+
+    getchar();
+
+    printf("\nEmail:\n");
+
+    gets(user.email);
+
+    printf("Novo utilizador é Admin?\n");
+    printf("1 - Admin  |  0 - Cliente");
+
+    scanf("%d", &user.permicoes);
+
+    if (user.permicoes == 1)
+    {
+        printf("Insira a chave do sistema:");
+
+        scanf("%s",chave_inserida);
+
+        if (strcmp(chave_inserida, chave_sistema) != 0)
+        {
+
+            MensagemErro(1);
+        }else{
+
+            printf("MODO ADMIN\n");
+
+        }
+    }
+
+    printf("\npassword:\n");
+
+    // "scanf" para a password em que so aparecem "*"
+    while (1)
+    {
+        ch = getch();
+        if (ch == 13)
+        {
+            user.password[i] = '\0';
+            break;
+        }
+        else if (ch == 8)
+        {
+            if (i > 0)
+            {
+                i--;
+                printf("\b \b");
+            }
+        }
+        else if (ch == 9 || ch == 32)
+        {
+            continue;
+        }
+        else
+        {
+            user.password[i++] = ch;
+            printf("*");
+        }
+    }
+    // fim de "scanf" da password.
+
+    printf("\n");
+
+    // user.id = rand()%100;
+    user.id = (int)time(NULL);
+
+    // instancia o ficheiro
+    FILE *outfile;
+
+    // abre o ficheiro em modo de
+    outfile = fopen("accounts.dat", "a+");
+
+    // exceçao para qualquer erro ao abrir o ficheiro
+    if (outfile == NULL)
+    {
+        printf("Erro ao abrir ficheiro ");
+        exit(1);
+    }
+
+    // escreve texto para o ficheiro
+    if (fseek(outfile, 0, SEEK_SET) == 0)
+    {
+        printf("ponteiro movido");
+    }
+
+    // escreve a struct para o ficheiro
+    fwrite(&user, sizeof(user), 1, outfile);
+
+    // fecha o ficheiro
+    fclose(outfile);
 }
 
 void PMenuUser(int id)
 {
 
     // instanciar a struct user com o nome find_user.
-    user selected_user;
+    User user;
 
     // limpa o terminal
     system("cls");
@@ -32,29 +149,37 @@ void PMenuUser(int id)
     int escolha = 0;
 
     // instancia o ficheiro
-    FILE *outfile;
+    FILE *file;
 
     // abre o ficheiro no modo de
-    outfile = fopen("accounts.dat", "a+");
+    file = fopen("accounts.dat", "a+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
-    if (outfile == NULL)
+    if (file == NULL)
     {
         fprintf(stderr, "\nError opening accounts.dat\n\n");
         exit(1);
     }
 
-    printf("Id User: %d\n", id);
+    while (fread(&user, sizeof(User), 1, file))
+    {
+        if (user.id == id)
+        {
+            break;
+        }
+    }
+
+    printf("Ola %s\n", user.nome);
 
     while (escolha != 4)
     {
         printf("\t\t\t\t\t=========PERFIL DE CLIENTE=====\n");
-        printf("\t\t\t\t\t           1. \n");
-        printf("\t\t\t\t\t           2. Registar-se\n");
-        printf("\t\t\t\t\t           0. \n");
-        printf("\t\t\t\t\t           0. Terminar Sessao\n");
-        printf("\t\t\t\t\t           0. Terminar Sessao\n");
-        printf("\t\t\t\t\t           0. \n");
+        printf("\t\t\t\t\t           1. Efetuar Aluger\n");
+        printf("\t\t\t\t\t           2. =====\n");
+        printf("\t\t\t\t\t           0. =====\n");
+        printf("\t\t\t\t\t           0. =====\n");
+        printf("\t\t\t\t\t           0. =====\n");
+        printf("\t\t\t\t\t           6. Informaçoes de Utilizador\n");
         printf("\t\t\t\t\t           7. Alterar Password\n");
         printf("\t\t\t\t\t           0. Terminar Sessao\n");
         printf("\t\t\t\t\t=======================================\n");
@@ -64,7 +189,7 @@ void PMenuUser(int id)
         {
         case 1:
             system("cls");
-            Login();
+            NovoAluguer();
             system("pause");
             system("cls");
             break;
@@ -81,7 +206,7 @@ void PMenuUser(int id)
             printf("\n\t\t\t\t\tA TERMINAR SESSAO...\n\n");
             delay(1);
             system("cls");
-            mainMenu();
+            MainMenu();
 
             break;
 

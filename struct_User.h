@@ -11,6 +11,6 @@ typedef struct
         char email[100];
         char password[10];
         int permicoes;  //0 - user normal  |  1 - user administrador
-    }user;
+    }User;
 
 #endif
