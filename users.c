@@ -201,6 +201,14 @@ void PMenuUser(int id)
 
             break;
 
+
+        case 6:
+            system("cls");
+            InfoUser(id);
+            system("pause");
+            system("cls");
+            break;
+
         case 0:
             system("cls");
             printf("\n\t\t\t\t\tA TERMINAR SESSAO...\n\n");
@@ -222,4 +230,59 @@ void PMenuUser(int id)
 
     system("pause");
     system("cls");
+}
+
+void ApagarUser(){
+
+
+
+}
+
+
+void InfoUser(int id){
+
+    // instanciar a struct user com o nome find_user.
+    User user;
+
+    // limpa o terminal
+    system("clear");
+
+    // declaraçao de variaveis necessarias para a funçao
+    int escolha = 0;
+
+    // instancia o ficheiro
+    FILE *file;
+
+    // abre o ficheiro no modo de
+    file = fopen("accounts.dat", "a+");
+
+    // exceçao para qualquer erro ao abrir o ficheiro
+    if (file == NULL)
+    {
+        fprintf(stderr, "\nError opening accounts.dat\n\n");
+        exit(1);
+    }
+
+    while (fread(&user, sizeof(User), 1, file))
+    {
+        if (user.id == id)
+        {
+            break;
+        }
+    }
+    
+
+    printf("\t\t\t\t\t=========PERFIL DE CLIENTE=====\n");
+        printf("\t\t\t\t\t           1. Efetuar Aluger\n");
+        printf("\t\t\t\t\t           2. =====\n");
+        printf("\t\t\t\t\t           0. =====\n");
+        printf("\t\t\t\t\t           0. =====\n");
+        printf("\t\t\t\t\t           0. =====\n");
+        printf("\t\t\t\t\t           6. Informaçoes de Utilizador\n");
+        printf("\t\t\t\t\t           7. Alterar Password\n");
+        printf("\t\t\t\t\t           0. Terminar Sessao\n");
+        printf("\t\t\t\t\t=======================================\n");
+        printf("\t\t\t\t\t      ");
+
+
 }

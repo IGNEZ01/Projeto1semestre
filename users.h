@@ -2,6 +2,9 @@
 #define USERS_H
 
 
-void PMenuUser(int id);            // outra
+void PMenuUser(int id);
+void PRegistarUser();
+void ApagarUser();
+void InfoUser(int id);
 
 #endif
