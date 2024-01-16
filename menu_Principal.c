@@ -4,7 +4,7 @@
 #include <time.h>
 #include "struct_User.h"
 #include <time.h>
-#include "menu_principal.h"
+#include "menu_Principal.h"
 #include "users.c"
 #include "admin.c"
 
