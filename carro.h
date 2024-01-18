@@ -5,5 +5,6 @@ void RegistarCarro();
 void EstadoCarro();
 void AtualizarCarro();
 void EliminarCarro();
+void SelecionarCarro();
 
 #endif

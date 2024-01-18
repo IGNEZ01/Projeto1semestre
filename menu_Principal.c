@@ -87,15 +87,16 @@ void Login()
         // caso certo redireciona o utilizador para a pagina de menu de utilizador.
         if (strcmp(user.nome_utilizador, username) == 0 && strcmp(user.password, password) == 0)
         {
-            if (user.permicoes == 1)
-            {
+            printf("%d", user.permicoes);
+            printf("\nLogin successful.\n");
 
-                printf("\nLogin successful.\n");
-                system("cls");
+            if(user.permicoes == 1){
+
+                printf("ADMIN");
                 PAdmin(user.id);
             }
 
-            printf("\nLogin successful.\n");
+            system("pause");
             system("cls");
             PMenuUser(user.id);
         }

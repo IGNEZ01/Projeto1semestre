@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "string.h": "c",
-        "auxiliar.h": "c"
+        "auxiliar.h": "c",
+        "struct_carro.h": "c",
+        "admin.h": "c",
+        "aluguer.h": "c",
+        "carro.h": "c"
     }
 }

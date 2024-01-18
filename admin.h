@@ -2,5 +2,7 @@
 #define ADMIN_H
 
 void PAdmin(int id);
+void ListarCarros();
+void ListarClientes();
 
 #endif

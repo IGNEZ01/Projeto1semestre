@@ -174,14 +174,11 @@ void PMenuUser(int id)
     while (escolha != 4)
     {
         printf("\t\t\t\t\t=========PERFIL DE CLIENTE=====\n");
-        printf("\t\t\t\t\t           1. Efetuar Aluger\n");
-        printf("\t\t\t\t\t           2. =====\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           6. Informaçoes de Utilizador\n");
-        printf("\t\t\t\t\t           7. Alterar Password\n");
-        printf("\t\t\t\t\t           0. Terminar Sessao\n");
+        printf("menu");
+        printf("\t\t\t\t\t      1. Efetuar Aluger\n");
+        printf("\t\t\t\t\t      2. Informaçoes de Utilizador\n");
+        printf("\t\t\t\t\t      3. Alterar Password\n");
+        printf("\t\t\t\t\t      0. Terminar Sessao\n");
         printf("\t\t\t\t\t=======================================\n");
         printf("\t\t\t\t\t      ");
         scanf("%d", &escolha);
@@ -189,20 +186,12 @@ void PMenuUser(int id)
         {
         case 1:
             system("cls");
-            NovoAluguer();
+            PNovoAluguer(id);
             system("pause");
             system("cls");
             break;
+
         case 2:
-            system("cls");
-            PRegistarUser();
-            system("pause");
-            system("cls");
-
-            break;
-
-
-        case 6:
             system("cls");
             InfoUser(id);
             system("pause");
@@ -245,10 +234,7 @@ void InfoUser(int id){
     User user;
 
     // limpa o terminal
-    system("clear");
-
-    // declaraçao de variaveis necessarias para a funçao
-    int escolha = 0;
+    system("cls");
 
     // instancia o ficheiro
     FILE *file;
@@ -259,7 +245,7 @@ void InfoUser(int id){
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
     {
-        fprintf(stderr, "\nError opening accounts.dat\n\n");
+        fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
         exit(1);
     }
 
@@ -271,18 +257,16 @@ void InfoUser(int id){
         }
     }
     
-
-    printf("\t\t\t\t\t=========PERFIL DE CLIENTE=====\n");
-        printf("\t\t\t\t\t           1. Efetuar Aluger\n");
-        printf("\t\t\t\t\t           2. =====\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           6. Informaçoes de Utilizador\n");
-        printf("\t\t\t\t\t           7. Alterar Password\n");
-        printf("\t\t\t\t\t           0. Terminar Sessao\n");
-        printf("\t\t\t\t\t=======================================\n");
-        printf("\t\t\t\t\t      ");
-
+    system("cls");
+    printf("\t\t\t\t\t=========INFORMACOES DE PERFIL=====\n");
+    printf("\t\t\t\t\t         Nome: %s\n", user.nome);
+    printf("\t\t\t\t\t         Nome de utilizador: %s\n", user.nome_utilizador);
+    printf("\t\t\t\t\t         Idade: %d\n", user.idade);
+    printf("\t\t\t\t\t         N.I.F.: %d\n", user.nif);
+    printf("\t\t\t\t\t         Email: %s\n", user.email);
+    printf("\t\t\t\t\t=======================================\n");
+    printf("\t\t\t\t\t      ");
+    system("cls");
+    system("pause");
 
 }
