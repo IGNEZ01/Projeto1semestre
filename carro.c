@@ -3,10 +3,136 @@
 #include "carro.h"
 #include "struct_Carro.h"
 
+void ListarCarrosDisponiveis(){
+
+    // instanciar a struct user com o nome read_user
+    Carro read_car;
+
+    // instancia o ficheiro
+    FILE *file;
+    
+    // Abre o ficheiro "accounts.dat"
+    file = fopen ("carros.dat","a+");
+
+    // exceçao para qualquer erro ao abrir o ficheiro
+    if (file == NULL)
+        {
+            fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
+            exit (1);
+        }
+    
+    while (fread (&read_car, sizeof(Carro), 1, file))
+    {   
+        if(read_car.estado_alugado == 0){
+            printf ("MARCA = %s MODELO: %s Matricula: %s COMBUSTIVEL: %s LUGARES: %d CELINDRADA: %d\n",
+                    read_car.marca, read_car.modelo, read_car.matricula, read_car.alimentacao, read_car.lugares, read_car.celindrada);
+
+        }
+        
+    }
+
+    fclose(file);
+}
+
+void ListarCarros(){
+
+    // instanciar a struct user com o nome read_user
+    Carro read_car;
+
+    // instancia o ficheiro
+    FILE *file;
+    
+    // Abre o ficheiro "accounts.dat"
+    file = fopen ("carros.dat","a+");
+
+    // exceçao para qualquer erro ao abrir o ficheiro
+    if (file == NULL)
+        {
+            fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
+            exit (1);
+        }
+    
+    while (fread (&read_car, sizeof(Carro), 1, file))
+    {
+        printf ("MARCA = %s MODELO: %s Matricula: %s COMBUSTIVEL: %s LUGARES: %d CELINDRADA: %d Disponibilidade: %d\n",
+                read_car.marca, read_car.modelo, read_car.matricula, read_car.alimentacao, read_car.lugares, read_car.celindrada, read_car.estado_alugado);
+    }
+
+    fclose(file);
+}
+
+void SelecionarCarro(id)
+{
+
+    char matricula[10];
+
+    system("cls");
+
+    printf("\t\t\t\t\t  =========REGISTAR NOVO ALUGUER=====\n");
+    printf("\t\t\t\t\tInserir a matricula do carro pretendido\n");
+
+    scanf("%s", matricula);
+
+    // instanciar a struct user com o nome find_user.
+    Carro carro;
+
+    // declaraçao de variaveis necessarias para a funçao
+    int duracao_aluguer = 0;
+
+    // instancia o ficheiro
+    FILE *file;
+
+    // abre o ficheiro no modo de
+    file = fopen("carros.dat", "a+");
+
+    // exceçao para qualquer erro ao abrir o ficheiro
+    if (file == NULL)
+    {
+        fprintf(stderr, "\nErro ao abrir o ficheiro carros.dat\n\n");
+        exit(1);
+    }
+
+    while (fread(&carro, sizeof(Carro), 1, file))
+    {
+        if (strcmp(carro.matricula, matricula) == 0)
+        {
+
+            if (carro.id_alugado != 0)
+            {
+
+                system("cls");
+                printf("\t\t\t\t\t  =========CARRO NAO DISPONIVEL=======\n");
+                delay(2);
+                system("cls");
+                break;
+            }
+
+            printf("carro disponivel!");
+
+            printf("Quanto tempo sera o aluger?");
+
+            scanf("%d", &duracao_aluguer);
+
+            carro.id_alugado = id;
+
+            printf("Id user alugado: %d", carro.id_alugado);
+
+            break;
+        }else{
+
+            system("cls");
+            printf("\t\t\t\t\t  =========CARRO NAO DISPONIVEL=======\n");
+            delay(2);
+            system("cls");
+            break;
+
+        }
+    }
+}
 
 void RegistarCarro(){
 
-    // instanciar a struct user com o nome find_user.
+    // instanciar a struct Carro com o nome carro.
     Carro carro;
 
     // limpa o terminal
@@ -51,6 +177,9 @@ void RegistarCarro(){
     scanf("%d", &carro.lugares);
 
     printf("\n");
+
+    //certifica que o carro esta sempre disponivel quando inserido
+    carro.estado_alugado = 0;
 
     // user.id = rand()%100;
     carro.id = (int)time(NULL);

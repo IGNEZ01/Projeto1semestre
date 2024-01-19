@@ -5,12 +5,54 @@
 #include "struct_User.h"
 #include "users.h"
 #include "auxiliar.c"
-#include "aluguer.c"
-
 
 // chave do sistema
 char chave_sistema[10] = "eYKoQFNc8N";
 char chave_inserida[10];
+
+void InfoUser(int id)
+{
+
+    // instanciar a struct user com o nome find_user.
+    User user;
+
+    // limpa o terminal
+    // system("cls");
+
+    // instancia o ficheiro
+    FILE *file;
+
+    // abre o ficheiro no modo de
+    file = fopen("accounts.dat", "r");
+
+    // exceçao para qualquer erro ao abrir o ficheiro
+    if (file == NULL)
+    {
+        fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
+        exit(1);
+    }
+
+    while (fread(&user, sizeof(User), 1, file))
+    {
+        if (user.id == id)
+        {
+            system("cls");
+            printf("\t\t\t\t\t=========INFORMACOES DE PERFIL=====\n");
+            printf("\t\t\t\t\t         Nome: %s\n", user.nome);
+            printf("\t\t\t\t\t         Nome de utilizador: %s\n", user.nome_utilizador);
+            printf("\t\t\t\t\t         Idade: %d\n", user.idade);
+            printf("\t\t\t\t\t         N.I.F.: %d\n", user.nif);
+            printf("\t\t\t\t\t         Email: %s\n", user.email);
+            printf("\t\t\t\t\t=======================================\n");
+            printf("\t\t\t\t\t      ");
+            break;
+        }
+    }
+    
+    system("pause");
+    system("cls");
+    fclose(file);
+}
 
 void PRegistarUser()
 { // metodo para mostrar o ecra de registo de novo utilizador e escrever para o ficheiro "accounts.dat"
@@ -61,16 +103,17 @@ void PRegistarUser()
     {
         printf("Insira a chave do sistema:");
 
-        scanf("%s",chave_inserida);
+        scanf("%s", chave_inserida);
 
         if (strcmp(chave_inserida, chave_sistema) != 0)
         {
 
             MensagemErro(1);
-        }else{
+        }
+        else
+        {
 
             printf("MODO ADMIN\n");
-
         }
     }
 
@@ -123,12 +166,6 @@ void PRegistarUser()
         exit(1);
     }
 
-    // escreve texto para o ficheiro
-    if (fseek(outfile, 0, SEEK_SET) == 0)
-    {
-        printf("ponteiro movido");
-    }
-
     // escreve a struct para o ficheiro
     fwrite(&user, sizeof(user), 1, outfile);
 
@@ -173,12 +210,12 @@ void PMenuUser(int id)
 
     while (escolha != 4)
     {
-        printf("\t\t\t\t\t=========PERFIL DE CLIENTE=====\n");
-        printf("menu");
-        printf("\t\t\t\t\t      1. Efetuar Aluger\n");
-        printf("\t\t\t\t\t      2. Informaçoes de Utilizador\n");
-        printf("\t\t\t\t\t      3. Alterar Password\n");
-        printf("\t\t\t\t\t      0. Terminar Sessao\n");
+        printf("\t\t\t\t\t============PERFIL DE CLIENTE==========\n");
+        printf("\t\t\t\t\t         1. Efetuar Aluger\n");
+        printf("\t\t\t\t\t         2. Listar Carros disponiveis\n");
+        printf("\t\t\t\t\t         3. Informaçoes de Utilizador\n");
+        printf("\t\t\t\t\t         4. Alterar Password\n");
+        printf("\t\t\t\t\t         0. Terminar Sessao\n");
         printf("\t\t\t\t\t=======================================\n");
         printf("\t\t\t\t\t      ");
         scanf("%d", &escolha);
@@ -186,12 +223,19 @@ void PMenuUser(int id)
         {
         case 1:
             system("cls");
-            PNovoAluguer(id);
+            SelecionarCarro(id);
             system("pause");
             system("cls");
             break;
 
         case 2:
+            system("cls");
+            ListarCarrosDisponiveis();
+            system("pause");
+            system("cls");
+            break;
+
+        case 3:
             system("cls");
             InfoUser(id);
             system("pause");
@@ -219,54 +263,10 @@ void PMenuUser(int id)
 
     system("pause");
     system("cls");
+    fclose(file);
 }
 
-void ApagarUser(){
-
-
-
+void ApagarUser()
+{
 }
 
-
-void InfoUser(int id){
-
-    // instanciar a struct user com o nome find_user.
-    User user;
-
-    // limpa o terminal
-    system("cls");
-
-    // instancia o ficheiro
-    FILE *file;
-
-    // abre o ficheiro no modo de
-    file = fopen("accounts.dat", "a+");
-
-    // exceçao para qualquer erro ao abrir o ficheiro
-    if (file == NULL)
-    {
-        fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
-        exit(1);
-    }
-
-    while (fread(&user, sizeof(User), 1, file))
-    {
-        if (user.id == id)
-        {
-            break;
-        }
-    }
-    
-    system("cls");
-    printf("\t\t\t\t\t=========INFORMACOES DE PERFIL=====\n");
-    printf("\t\t\t\t\t         Nome: %s\n", user.nome);
-    printf("\t\t\t\t\t         Nome de utilizador: %s\n", user.nome_utilizador);
-    printf("\t\t\t\t\t         Idade: %d\n", user.idade);
-    printf("\t\t\t\t\t         N.I.F.: %d\n", user.nif);
-    printf("\t\t\t\t\t         Email: %s\n", user.email);
-    printf("\t\t\t\t\t=======================================\n");
-    printf("\t\t\t\t\t      ");
-    system("cls");
-    system("pause");
-
-}

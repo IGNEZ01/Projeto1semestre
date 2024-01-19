@@ -1,55 +1,33 @@
 #include "admin.h"
 #include "carro.c"
+#include "struct_User.h"
 
-void ListarCarros(){
-
-    // instanciar a struct user com o nome read_user
-    Carro read_car;
-
-    // instancia o ficheiro
-    FILE *infile;
-    
-    // Abre o ficheiro "accounts.dat"
-    infile = fopen ("carros.dat","r");
-
-    // exceçao para qualquer erro ao abrir o ficheiro
-    if (infile == NULL)
-        {
-            fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
-            exit (1);
-        }
-    
-    while (fread (&read_car, sizeof(Carro), 1, infile))
-    {
-        printf ("MARCA = %s Matricula: %s\n",
-                  read_car.marca, read_car.matricula);
-    }
-}
-
-void ListarClientes(){
+void ListarClientes()
+{
 
     // instanciar a struct user com o nome read_user
     User read_user;
 
     // instancia o ficheiro
-    FILE *infile;
-    
+    FILE *file;
+
     // Abre o ficheiro "accounts.dat"
-    infile = fopen ("accounts.dat","r");
+    file = fopen("accounts.dat", "r");
 
     // exceçao para qualquer erro ao abrir o ficheiro
-    if (infile == NULL)
-        {
-            fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
-            exit (1);
-        }
-    
-    while (fread (&read_user, sizeof(User), 1, infile))
+    if (file == NULL)
     {
-        printf ("ID = %d Nome = %s  Nome de Utilizador = %s  Idade = %d   NIF= %d   Email = %s\n",
-                  read_user.id, read_user.nome,read_user.nome_utilizador, read_user.idade, read_user.nif, read_user.email);
+        fprintf(stderr, "\nErro ao abrir o ficheiro accounts.dat\n\n");
+        exit(1);
     }
-    
+
+    while (fread(&read_user, sizeof(User), 1, file))
+    {
+        printf("ID = %d Nome = %s  Nome de Utilizador = %s  Idade = %d   NIF= %d   Email = %s\n",
+               read_user.id, read_user.nome, read_user.nome_utilizador, read_user.idade, read_user.nif, read_user.email);
+    }
+
+    fclose(file);
 }
 
 void PAdmin(int id)
@@ -94,9 +72,10 @@ void PAdmin(int id)
         printf("\t\t\t\t\t           2. listar clientes\n");
         printf("\t\t\t\t\t           3. listar carros\n");
         printf("\t\t\t\t\t           4. Registar novo carro\n");
-        printf("\t\t\t\t\t           0. =====\n");
-        printf("\t\t\t\t\t           6. Informaçoes de Utilizador\n");
-        printf("\t\t\t\t\t           7. Alterar Password\n");
+        printf("\t\t\t\t\t           5. Estatisticas Carros\n");
+        printf("\t\t\t\t\t           6. Estatisticas Utilizadores\n");
+        printf("\t\t\t\t\t           7. Informaçoes de Utilizador\n");
+        printf("\t\t\t\t\t           8. Alterar Password\n");
         printf("\t\t\t\t\t           0. Terminar Sessao\n");
         printf("\t\t\t\t\t=======================================\n");
         printf("\t\t\t\t\t      ");
@@ -105,7 +84,7 @@ void PAdmin(int id)
         {
         case 1:
             system("cls");
-            PNovoAluguer(id);
+            SelecionarCarro(id);
             system("pause");
             system("cls");
             break;
@@ -117,21 +96,20 @@ void PAdmin(int id)
 
             break;
 
-
         case 3:
             system("cls");
             ListarCarros();
             system("pause");
             system("cls");
             break;
-        
+
         case 4:
             system("cls");
             RegistarCarro();
             PAdmin(id);
             break;
 
-        case 6:
+        case 7:
             system("cls");
             InfoUser(id);
             break;
@@ -157,6 +135,5 @@ void PAdmin(int id)
 
     system("pause");
     system("cls");
-    
+    fclose(file);
 }
-

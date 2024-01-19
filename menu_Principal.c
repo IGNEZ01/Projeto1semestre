@@ -101,6 +101,7 @@ void Login()
             PMenuUser(user.id);
         }
     }
+    fclose(outfile);
 }
 
 void MainMenu()
