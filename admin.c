@@ -67,7 +67,7 @@ void PAdmin(int id)
 
     while (escolha != 4)
     {
-        printf("\t\t\t\t\t=========PERFIL DE ADMINISTRADOR=====\n");
+        printf("\t\t\t\t\t===========PERFIL DE ADMINISTRADOR==========\n");
         printf("\t\t\t\t\t           1. Efetuar Aluger\n");
         printf("\t\t\t\t\t           2. listar clientes\n");
         printf("\t\t\t\t\t           3. listar carros\n");
@@ -75,16 +75,17 @@ void PAdmin(int id)
         printf("\t\t\t\t\t           5. Estatisticas Carros\n");
         printf("\t\t\t\t\t           6. Estatisticas Utilizadores\n");
         printf("\t\t\t\t\t           7. Informaçoes de Utilizador\n");
+        printf("\t\t\t\t\t           8. Remover aluguer\n");
         printf("\t\t\t\t\t           8. Alterar Password\n");
         printf("\t\t\t\t\t           0. Terminar Sessao\n");
-        printf("\t\t\t\t\t=======================================\n");
+        printf("\t\t\t\t\t============================================\n");
         printf("\t\t\t\t\t      ");
         scanf("%d", &escolha);
         switch (escolha)
         {
         case 1:
             system("cls");
-            SelecionarCarro(id);
+            NovoAluguer(id);
             system("pause");
             system("cls");
             break;
@@ -112,6 +113,11 @@ void PAdmin(int id)
         case 7:
             system("cls");
             InfoUser(id);
+            break;
+
+        case 8:
+            system("cls");
+            RemoverAluguer(id);
             break;
 
         case 0:

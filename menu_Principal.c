@@ -38,6 +38,7 @@ void Login()
     // escrita
     printf("\t\t\t\t    =====LOGIN=====\n");
     printf("\t\t\t\t   Nome de Utilidador:\n");
+    printf("\t\t\t\t      ");
 
     // recebe o username
     scanf("%s", username);
@@ -87,7 +88,6 @@ void Login()
         // caso certo redireciona o utilizador para a pagina de menu de utilizador.
         if (strcmp(user.nome_utilizador, username) == 0 && strcmp(user.password, password) == 0)
         {
-            printf("%d", user.permicoes);
             printf("\nLogin successful.\n");
 
             if(user.permicoes == 1){

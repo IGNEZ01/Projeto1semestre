@@ -223,7 +223,7 @@ void PMenuUser(int id)
         {
         case 1:
             system("cls");
-            SelecionarCarro(id);
+            NovoAluguer(id);
             system("pause");
             system("cls");
             break;

@@ -18,7 +18,7 @@ typedef struct
         char alimentacao[20];
         char matricula[10];
         struct Data idade;
-        int estado_alugado;
+        int estado_alugado;     //0 - Nao alugado | 1 - Alugado
         int id_alugado;
     }Carro;
 
