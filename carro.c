@@ -84,7 +84,7 @@ void NovoAluguer(int id)
     FILE *file;
 
     // abre o ficheiro no modo de
-    file = fopen("carros.dat", "a+");
+    file = fopen("carros.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
@@ -93,20 +93,11 @@ void NovoAluguer(int id)
         exit(1);
     }
 
-    while (fread(&carro, sizeof(Carro), 1, file))
+    while (fread(&carro, sizeof(Carro), 1, file) == 1 )
     {
-        if (strcmp(carro.matricula, matricula) == 0)
+        printf("%s", carro.matricula);
+        if (strcmp(matricula, carro.matricula) == 0 && carro.estado_alugado == 0)
         {
-
-            if (carro.id_alugado != 0)
-            {
-
-                system("cls");
-                printf("\t\t\t\t\t  =========CARRO NAO DISPONIVEL=======\n");
-                delay(2);
-                system("cls");
-                break;
-            }
 
             printf("carro disponivel!");
 
@@ -116,6 +107,15 @@ void NovoAluguer(int id)
 
             carro.id_alugado = id;
 
+            rewind(file);
+            printf("%d", carro.estado_alugado);
+            carro.estado_alugado = 1;
+            printf("%d", carro.estado_alugado);
+            fseek(file, -sizeof(Carro), SEEK_CUR);
+            fwrite(&carro, sizeof(Carro), 1, file);
+            system("pause");
+
+
             printf("Id user alugado: %d", carro.id_alugado);
 
             break;
@@ -123,13 +123,15 @@ void NovoAluguer(int id)
         else
         {
 
-            system("cls");
+            //system("cls");
             printf("\t\t\t\t\t  =========CARRO NAO DISPONIVEL=======\n");
             delay(2);
-            system("cls");
+            //system("cls");
             break;
         }
     }
+    fclose(file);
+    system("pause");
 }
 
 void RemoverAluguer(int id)
@@ -156,7 +158,7 @@ void RemoverAluguer(int id)
     FILE *file;
 
     // abre o ficheiro no modo de
-    file = fopen("carros.dat", "a+");
+    file = fopen("carros.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
@@ -174,10 +176,13 @@ void RemoverAluguer(int id)
             {
 
                 system("cls");
-                carro.id_alugado = 0;
                 carro.estado_alugado = 0;
+                carro.id_alugado = 0;
+                fseek(file, -sizeof(Carro), SEEK_CUR);
+                fwrite(&carro, sizeof(Carro), 1, file);
                 printf("\t\t\t\t\t  =========ALUGUER REMOVIDO=======\n");
                 delay(2);
+                fclose(file);
                 system("cls");
                 break;
             }
@@ -190,10 +195,12 @@ void RemoverAluguer(int id)
             system("cls");
             printf("\t\t\t\t\t  =========CARRO NAO ENCONTRADO=======\n");
             delay(2);
+            fclose(file);
             system("cls");
             break;
         }
     }
+
 }
 
 void RegistarCarro()
