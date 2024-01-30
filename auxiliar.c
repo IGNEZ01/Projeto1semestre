@@ -19,7 +19,7 @@ void SysPause(){
 
     #ifdef _WIN32
         system("pause");
-    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__))
         getchar();
     
     #endif
@@ -30,7 +30,7 @@ void SysCLS(){
 
     #ifdef _WIN32
         system("cls");
-    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__))
         system("clear");
     
     #endif
