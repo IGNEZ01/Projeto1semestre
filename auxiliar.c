@@ -20,12 +20,35 @@ int VerifAdmin(int permicoes){
 
 }
 
+void SysPause(){
+
+    #ifdef _WIN32
+        system("pause");
+    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+        getchar();
+    
+    #endif
+
+}
+
+void SysCLS(){
+
+    #ifdef _WIN32
+        system("cls");
+    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+        system("clear");
+    
+    #endif
+
+
+}
+
 void MensagemErro(int erro){
 
     switch (erro)
     {
     case 1:
-        system("cls");
+        SysCLS();
         printf("\t\t\t\tCHAVE DE SISTEMA ERRADA!!!");
         delay(1);
         MainMenu();

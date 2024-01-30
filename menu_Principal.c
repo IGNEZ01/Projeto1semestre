@@ -14,7 +14,7 @@ void Login()
     User user;
 
     // limpa o terminal
-    system("cls");
+    SysCLS();
 
     // declaraçao de variaveis necessarias para a funçao
     char username[20];
@@ -96,8 +96,8 @@ void Login()
                 PAdmin(user.id);
             }
 
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
             PMenuUser(user.id);
         }
     }
@@ -108,7 +108,7 @@ void MainMenu()
 { // funçao de mostra o menu inicial do sistema
 
     // limpa o terminal
-    system("cls");
+    SysCLS();
 
     // declaraçao de variaveis
     int choice;
@@ -125,33 +125,33 @@ void MainMenu()
         switch (choice)
         {
         case 1:
-            system("cls");
+            SysCLS();
             Login();
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
             break;
         case 2:
-            system("cls");
+            SysCLS();
             PRegistarUser();
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
 
             break;
 
         case 0:
-            system("cls");
+            SysCLS();
             printf("\n\t\t\t\tObrigado por usar o sistema\n\n");
             delay(1);
             exit(0);
             break;
 
         default:
-            system("cls");
+            SysCLS();
             printf("\n\t\t\t\t\tInsira uma opcao valida\n\n");
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
             return;
         }
     }
-    system("pause");
+    SysPause();
 }

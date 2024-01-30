@@ -17,7 +17,7 @@ void InfoUser(int id)
     User user;
 
     // limpa o terminal
-    // system("cls");
+    // SysCLS();
 
     // instancia o ficheiro
     FILE *file;
@@ -36,7 +36,7 @@ void InfoUser(int id)
     {
         if (user.id == id)
         {
-            system("cls");
+            SysCLS();
             printf("\t\t\t\t\t=========INFORMACOES DE PERFIL=====\n");
             printf("\t\t\t\t\t         Nome: %s\n", user.nome);
             printf("\t\t\t\t\t         Nome de utilizador: %s\n", user.nome_utilizador);
@@ -49,8 +49,8 @@ void InfoUser(int id)
         }
     }
     
-    system("pause");
-    system("cls");
+    SysPause();
+    SysCLS();
     fclose(file);
 }
 
@@ -61,7 +61,7 @@ void PRegistarUser()
     User user;
 
     // limpa o terminal
-    system("cls");
+    SysCLS();
 
     // declaraçao de variaveis necessarias para a funçao
     char ch;
@@ -180,7 +180,7 @@ void PMenuUser(int id)
     User user;
 
     // limpa o terminal
-    system("cls");
+    SysCLS();
 
     // declaraçao de variaveis necessarias para a funçao
     int escolha = 0;
@@ -222,47 +222,47 @@ void PMenuUser(int id)
         switch (escolha)
         {
         case 1:
-            system("cls");
+            SysCLS();
             NovoAluguer(id);
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
             break;
 
         case 2:
-            system("cls");
+            SysCLS();
             ListarCarrosDisponiveis();
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
             break;
 
         case 3:
-            system("cls");
+            SysCLS();
             InfoUser(id);
-            system("pause");
-            system("cls");
+            SysPause();
+            SysCLS();
             break;
 
         case 0:
-            system("cls");
+            SysCLS();
             printf("\n\t\t\t\t\tA TERMINAR SESSAO...\n\n");
             delay(1);
-            system("cls");
+            SysCLS();
             MainMenu();
 
             break;
 
         default:
-            system("cls");
+            SysCLS();
             printf("\n\t\t\t\t\tInsira uma opcao valida\n\n");
-            system("pause");
+            SysPause();
 
-            system("cls");
+            SysCLS();
             break;
         }
     }
 
-    system("pause");
-    system("cls");
+    SysPause();
+    SysCLS();
     fclose(file);
 }
 

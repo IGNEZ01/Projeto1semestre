@@ -67,7 +67,7 @@ void NovoAluguer(int id)
 
     char matricula[10];
 
-    system("cls");
+    SysCLS();
 
     printf("\t\t\t\t\t  =========REGISTAR NOVO ALUGUER=====\n");
     printf("\t\t\t\t\tInserir a matricula do carro pretendido\n");
@@ -81,10 +81,11 @@ void NovoAluguer(int id)
     int duracao_aluguer = 0;
 
     // instancia o ficheiro
-    FILE *file;
-
-    // abre o ficheiro no modo de
+    FILE *file; 
+    
     file = fopen("carros.dat", "rb+");
+
+    
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
@@ -92,13 +93,14 @@ void NovoAluguer(int id)
         fprintf(stderr, "\nErro ao abrir o ficheiro carros.dat\n\n");
         exit(1);
     }
+    
+    
 
-    while (fread(&carro, sizeof(Carro), 1, file) == 1 )
+    while (fread(&carro, sizeof(Carro), 1, file))
     {
-        printf("%s", carro.matricula);
-        if (strcmp(matricula, carro.matricula) == 0 && carro.estado_alugado == 0)
-        {
 
+        if (strcmp(carro.matricula, matricula) == 0 && carro.estado_alugado == 0)
+        {
             printf("carro disponivel!");
 
             printf("Quanto tempo sera o aluger?");
@@ -107,31 +109,24 @@ void NovoAluguer(int id)
 
             carro.id_alugado = id;
 
-            rewind(file);
+            
             printf("%d", carro.estado_alugado);
             carro.estado_alugado = 1;
             printf("%d", carro.estado_alugado);
             fseek(file, -sizeof(Carro), SEEK_CUR);
             fwrite(&carro, sizeof(Carro), 1, file);
-            system("pause");
+            SysPause();
 
 
             printf("Id user alugado: %d", carro.id_alugado);
-
             break;
         }
-        else
-        {
-
-            //system("cls");
-            printf("\t\t\t\t\t  =========CARRO NAO DISPONIVEL=======\n");
-            delay(2);
-            //system("cls");
-            break;
-        }
+                
     }
+    
+    
     fclose(file);
-    system("pause");
+    SysPause();
 }
 
 void RemoverAluguer(int id)
@@ -141,7 +136,7 @@ void RemoverAluguer(int id)
     char matricula[10];
 
     // limpa o terminal
-    system("cls");
+    SysCLS();
 
     // Visual
     printf("\t\t\t\t\t  ============REMOVER ALUGUER==========\n");
@@ -175,7 +170,7 @@ void RemoverAluguer(int id)
             if (carro.id_alugado != 0)
             {
 
-                system("cls");
+                SysCLS();
                 carro.estado_alugado = 0;
                 carro.id_alugado = 0;
                 fseek(file, -sizeof(Carro), SEEK_CUR);
@@ -183,22 +178,21 @@ void RemoverAluguer(int id)
                 printf("\t\t\t\t\t  =========ALUGUER REMOVIDO=======\n");
                 delay(2);
                 fclose(file);
-                system("cls");
+                SysCLS();
+                break;
+            }else{
+
+                SysCLS();
+                printf("\t\t\t\t\t  =========CARRO NAO ENCONTRADO=======\n");
+                delay(2);
+                fclose(file);
+                SysCLS();
                 break;
             }
 
             break;
         }
-        else
-        {
-
-            system("cls");
-            printf("\t\t\t\t\t  =========CARRO NAO ENCONTRADO=======\n");
-            delay(2);
-            fclose(file);
-            system("cls");
-            break;
-        }
+        
     }
 
 }
@@ -210,7 +204,7 @@ void RegistarCarro()
     Carro carro;
 
     // limpa o terminal
-    system("cls");
+    SysCLS();
 
     // declaraçao de variaveis necessarias para a funçao
     int i = 0;
@@ -284,4 +278,56 @@ void AtualizarCarro()
 
 void EliminarCarro()
 {
+    	
+    FILE *file;
+
+    file = fopen("carros.dat","rb+");
+
+    Carro carro;
+
+    long int controleFread;
+    int id=1;
+    char matricula[10];
+
+    if (file == NULL) 
+    {
+        printf("Could not open file.\n");
+        return;
+    }
+    else
+    {
+      printf("\t\t\t\t\t  =========REMOVER CARRO=======\n");
+      
+    } 
+
+    printf("\t\t\t\t\tDigite a matricula do carro que deseja remover: \n");
+    scanf("%s", matricula);
+    FILE *file2 = fopen("temp.dat","ab+");
+    if (file2 == NULL)
+    {
+        printf("\t\t\t\t\t  =========ERRO AO CRIAR ARQUIVO=======\n");
+    }
+    else
+    {
+        rewind(file);
+        while (fread(&carro, sizeof(Carro), 1, file) == 1)
+        {
+        if (strcmp(carro.matricula,matricula) != 0)// se a matricula for diferente do que o utilizador meteu
+        {
+            fwrite(&carro, sizeof(carro), 1, file2);// escreve a estrutura no arquivo temporario
+        }
+        
+        }
+    }
+
+    fclose(file);
+    fclose(file2);
+    
+    
+    remove("carros.dat");
+    rename("temp.dat","carros.dat");
+    printf("\t\t\t\t\t\tCarro removido com sucesso!");
+    
+    
+
 }
