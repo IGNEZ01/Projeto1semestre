@@ -272,9 +272,6 @@ void RegistarCarro()
     fclose(outfile);
 }
 
-void AtualizarCarro()
-{
-}
 
 void EliminarCarro()
 {

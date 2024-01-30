@@ -2,8 +2,8 @@
 #define AUXILIAR_H
 
 void delay(int number_of_seconds); // declaração de uma função
-int VerifAdmin(int permicoes);
+void SysPause();
+void SysCLS();
 void MensagemErro(int erro);
-
 
 #endif

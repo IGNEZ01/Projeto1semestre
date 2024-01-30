@@ -4,8 +4,8 @@
 void ListarCarrosDisponiveis();
 void ListarCarros();
 void NovoAluguer(int id);
+void RemoverAluguer();
 void RegistarCarro();
-void AtualizarCarro();
 void EliminarCarro();
 
 
