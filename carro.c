@@ -225,20 +225,20 @@ void RegistarCarro()
     scanf("%d", &carro.celindrada);
 
     getchar();
-
+ 
     printf("Tipo de Combustivel");
 
     gets(carro.alimentacao);
 
     printf("\nIdade");
 
-    scanf("%d", &carro.idade);
+    scanf(" %d", &carro.idade);
 
     getchar();
 
     printf("\nMatricula:\n");
 
-    gets(carro.matricula);
+    scanf("%s", carro.matricula);
 
     printf("\nLugares\n");
 
@@ -253,7 +253,7 @@ void RegistarCarro()
     carro.id = (int)time(NULL);
 
     // instancia o ficheiro
-    FILE *outfile;
+    FILE* outfile;
 
     // abre o ficheiro em modo de
     outfile = fopen("carros.dat", "a+");
