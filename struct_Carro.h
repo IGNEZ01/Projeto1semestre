@@ -20,6 +20,8 @@ typedef struct
         struct Data idade;
         int estado_alugado;     //0 - Nao alugado | 1 - Alugado
         int id_alugado;
+        int preco_diario;
+        int dias_alugado;
     }Carro;
 
 #endif

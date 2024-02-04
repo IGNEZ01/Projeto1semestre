@@ -26,8 +26,8 @@ void ListarCarrosDisponiveis()
     {
         if (read_car.estado_alugado == 0)
         {
-            printf("MARCA = %s MODELO: %s Matricula: %s COMBUSTIVEL: %s LUGARES: %d CELINDRADA: %d\n",
-                   read_car.marca, read_car.modelo, read_car.matricula, read_car.alimentacao, read_car.lugares, read_car.celindrada);
+            printf("MARCA = %s MODELO: %s Matricula: %s COMBUSTIVEL: %s LUGARES: %d CELINDRADA: %d Preco: %d\n",
+                   read_car.marca, read_car.modelo, read_car.matricula, read_car.alimentacao, read_car.lugares, read_car.celindrada, read_car.preco_diario);
         }
     }
 
@@ -55,8 +55,8 @@ void ListarCarros()
 
     while (fread(&read_car, sizeof(Carro), 1, file))
     {
-        printf("MARCA = %s MODELO: %s Matricula: %s COMBUSTIVEL: %s LUGARES: %d CELINDRADA: %d Disponibilidade: %d\n",
-               read_car.marca, read_car.modelo, read_car.matricula, read_car.alimentacao, read_car.lugares, read_car.celindrada, read_car.estado_alugado);
+        printf("MARCA = %s MODELO: %s Matricula: %s COMBUSTIVEL: %s LUGARES: %d CELINDRADA: %d Disponibilidade: %d Preco: %d quantidade de alugueres: %d\n",
+               read_car.marca, read_car.modelo, read_car.matricula, read_car.alimentacao, read_car.lugares, read_car.celindrada, read_car.estado_alugado, read_car.preco_diario, read_car.dias_alugado);
     }
 
     fclose(file);
@@ -71,6 +71,8 @@ void NovoAluguer(int id)
 
     printf("\t\t\t\t\t  =========REGISTAR NOVO ALUGUER=====\n");
     printf("\t\t\t\t\tInserir a matricula do carro pretendido\n");
+
+    printf("\t\t\t\t\t");
 
     scanf("%s", matricula);
 
@@ -90,7 +92,7 @@ void NovoAluguer(int id)
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
     {
-        fprintf(stderr, "\nErro ao abrir o ficheiro carros.dat\n\n");
+        fprintf(stderr, "\t\t\t\t\t\nERRO AO ABRIR O FICHEIRO carros.dat\n\n");
         exit(1);
     }
     
@@ -101,24 +103,22 @@ void NovoAluguer(int id)
 
         if (strcmp(carro.matricula, matricula) == 0 && carro.estado_alugado == 0)
         {
-            printf("carro disponivel!");
+            printf("\t\t\t\t\t Carro disponivel! \n");
 
-            printf("Quanto tempo sera o aluger?");
+            printf("\t\t\t\t\t Quantos dias sera o aluger? \n");
+
+            printf("\t\t\t\t\t");
 
             scanf("%d", &duracao_aluguer);
 
+            carro.dias_alugado = carro.dias_alugado + duracao_aluguer;
             carro.id_alugado = id;
-
-            
-            printf("%d", carro.estado_alugado);
             carro.estado_alugado = 1;
-            printf("%d", carro.estado_alugado);
+            
             fseek(file, -sizeof(Carro), SEEK_CUR);
             fwrite(&carro, sizeof(Carro), 1, file);
             SysPause();
 
-
-            printf("Id user alugado: %d", carro.id_alugado);
             break;
         }
                 
@@ -144,6 +144,7 @@ void RemoverAluguer(int id)
     printf("\t\t\t\t\t                  ");
 
     // Le a matricula inserida pelo utilizador
+    printf("\t\t\t\t\t");
     scanf("%s", matricula);
 
     // instanciar a struct user com o nome find_user.
@@ -158,7 +159,7 @@ void RemoverAluguer(int id)
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
     {
-        fprintf(stderr, "\nErro ao abrir o ficheiro carros.dat\n\n");
+        fprintf(stderr, "\t\t\t\t\t \nErro ao abrir o ficheiro carros.dat\n\n");
         exit(1);
     }
 
@@ -169,13 +170,16 @@ void RemoverAluguer(int id)
 
             if (carro.id_alugado != 0)
             {
-
                 SysCLS();
+
                 carro.estado_alugado = 0;
                 carro.id_alugado = 0;
+
                 fseek(file, -sizeof(Carro), SEEK_CUR);
                 fwrite(&carro, sizeof(Carro), 1, file);
+
                 printf("\t\t\t\t\t  =========ALUGUER REMOVIDO=======\n");
+
                 delay(2);
                 fclose(file);
                 SysCLS();
@@ -210,44 +214,65 @@ void RegistarCarro()
     int i = 0;
 
     // escrita e leitura do "formulario" de registo
-    printf("Marca:\n");
+    printf("\t\t\t\t\t Marca:\n");
+
+    printf("\t\t\t\t\t");
 
     scanf("%s", carro.marca);
 
-    printf("Modelo do carro:\n");
+    printf("\t\t\t\t\t Modelo do carro:\n");
+
+    printf("\t\t\t\t\t");
 
     scanf(" %[^\n]s", carro.modelo);
 
     getchar();
 
-    printf("\nCelindrada:");
+    printf("\t\t\t\t\t Celindrada: \n");
+
+    printf("\t\t\t\t\t");
 
     scanf("%d", &carro.celindrada);
 
     getchar();
  
-    printf("Tipo de Combustivel");
+    printf("\t\t\t\t\t Tipo de Combustivel: \n");
+
+    printf("\t\t\t\t\t ");
 
     gets(carro.alimentacao);
 
-    printf("\nIdade");
+    printf("\t\t\t\t\t Idade: \n");
+
+    printf("\t\t\t\t\t");
 
     scanf(" %d", &carro.idade);
 
     getchar();
 
-    printf("\nMatricula:\n");
+    printf("\t\t\t\t\t Matricula: \n");
+
+    printf("\t\t\t\t\t");
 
     scanf("%s", carro.matricula);
 
-    printf("\nLugares\n");
+    printf("\t\t\t\t\t Lugares: \n");
+
+    printf("\t\t\t\t\t");
 
     scanf("%d", &carro.lugares);
 
-    printf("\n");
+    printf("\t\t\t\t\t Preco: \n");
+
+    printf("\t\t\t\t\t");
+
+    scanf("%d", &carro.preco_diario);
+
+    printf("\t\t\t\t\t \n");
 
     // certifica que o carro esta sempre disponivel quando inserido
     carro.estado_alugado = 0;
+    carro.dias_alugado = 0;
 
     // user.id = rand()%100;
     carro.id = (int)time(NULL);

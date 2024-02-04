@@ -5,6 +5,7 @@
         "struct_carro.h": "c",
         "admin.h": "c",
         "aluguer.h": "c",
-        "carro.h": "c"
+        "carro.h": "c",
+        "struct_user.h": "c"
     }
 }

@@ -36,16 +36,16 @@ void Login()
     }
 
     // escrita
-    printf("\t\t\t\t    =====LOGIN=====\n");
-    printf("\t\t\t\t   Nome de Utilidador:\n");
-    printf("\t\t\t\t      ");
+    printf("\t\t\t\t\t    =====LOGIN=====\n");
+    printf("\t\t\t\t\t   Nome de Utilidador:\n");
+    printf("\t\t\t\t\t      ");
 
     // recebe o username
     scanf("%s", username);
 
     // escrita
-    printf("\t\t\t\t        Password: \n");
-    printf("\t\t\t\t      ");
+    printf("\t\t\t\t\t        Password: \n");
+    printf("\t\t\t\t\t      ");
 
     // "scanf" para a password em que so aparecem "*"
     while (1)
@@ -78,7 +78,7 @@ void Login()
 
     // escrita
     printf("\n");
-    printf("\t\t\t\t=======================================\n");
+    printf("\t\t\t\t\t=======================================\n");
 
     // ciclo while responsavel por precorrer todo o ficheiro ate ser encontrada a informaçao pretendida
     while (fread(&user, sizeof(User), 1, outfile))
@@ -88,7 +88,7 @@ void Login()
         // caso certo redireciona o utilizador para a pagina de menu de utilizador.
         if (strcmp(user.nome_utilizador, username) == 0 && strcmp(user.password, password) == 0)
         {
-            printf("\nLogin successful.\n");
+            printf("\n \t\t\t\t\t Login Bem Sucedido\n");
 
             if(user.permicoes == 1){
 
@@ -115,22 +115,24 @@ void MainMenu()
 
     while (choice != 4)
     {
-        printf("\t\t\t\t=====SISTEMA DE ALUGUER DE VEICULOS=====\n");
-        printf("\t\t\t\t            1. Login\n");
-        printf("\t\t\t\t            2. Registar-se\n");
-        printf("\t\t\t\t            0. Fechar Sistema\n");
-        printf("\t\t\t\t=======================================\n");
-        printf("\t\t\t\t      ");
+        printf("\t\t\t\t\t=====SISTEMA DE ALUGUER DE VEICULOS=====\n");
+        printf("\t\t\t\t\t            1. Login\n");
+        printf("\t\t\t\t\t            2. Registar-se\n");
+        printf("\t\t\t\t\t            0. Fechar Sistema\n");
+        printf("\t\t\t\t\t=======================================\n");
+        printf("\t\t\t\t\t      ");
         scanf("%d", &choice);
         switch (choice)
         {
         case 1:
+            //abre a pagina login
             SysCLS();
             Login();
             SysPause();
             SysCLS();
             break;
         case 2:
+            //abre a pagina de registo de utilizador
             SysCLS();
             PRegistarUser();
             SysPause();
@@ -139,19 +141,22 @@ void MainMenu()
             break;
 
         case 0:
+            //fecha o sistema
             SysCLS();
-            printf("\n\t\t\t\tObrigado por usar o sistema\n\n");
+            printf("\n\t\t\t\t\t Obrigado por usar o sistema\n\n");
             delay(1);
             exit(0);
             break;
 
         default:
+            //default erro
             SysCLS();
-            printf("\n\t\t\t\t\tInsira uma opcao valida\n\n");
+            printf("\n\t\t\t\t\t\tINSIRA UMA OPÇAO VÁLIDA!!\n\n");
             SysPause();
             SysCLS();
             return;
         }
     }
+    
     SysPause();
 }
