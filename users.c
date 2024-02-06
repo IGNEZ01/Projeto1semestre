@@ -5,6 +5,7 @@
 #include "struct_User.h"
 #include "users.h"
 #include "auxiliar.c"
+#include "carro.h"
 
 // chave do sistema
 char chave_sistema[10] = "eYKoQFNc8N";
@@ -48,7 +49,7 @@ void InfoUser(int id)
             break;
         }
     }
-    
+
     SysPause();
     SysCLS();
     fclose(file);
@@ -93,7 +94,7 @@ void PRegistarUser()
     printf("\nEmail:\n");
 
     gets(user.email);
-
+    fflush(stdin);
     printf("Novo utilizador é Admin?\n");
     printf("1 - Admin  |  0 - Cliente");
 
@@ -122,7 +123,8 @@ void PRegistarUser()
     // "scanf" para a password em que so aparecem "*"
     while (1)
     {
-        ch = getch();
+        fflush(stdin);
+        ch = getchar();
         if (ch == 13)
         {
             user.password[i] = '\0';
@@ -269,4 +271,3 @@ void PMenuUser(int id)
 void ApagarUser()
 {
 }
-

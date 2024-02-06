@@ -50,7 +50,7 @@ void Login()
     // "scanf" para a password em que so aparecem "*"
     while (1)
     {
-        ch = getch();
+        ch = getchar();
         if (ch == 13)
         {
             password[i] = '\0';
@@ -90,7 +90,8 @@ void Login()
         {
             printf("\n \t\t\t\t\t Login Bem Sucedido\n");
 
-            if(user.permicoes == 1){
+            if (user.permicoes == 1)
+            {
 
                 printf("ADMIN");
                 PAdmin(user.id);
@@ -125,14 +126,14 @@ void MainMenu()
         switch (choice)
         {
         case 1:
-            //abre a pagina login
+            // abre a pagina login
             SysCLS();
             Login();
             SysPause();
             SysCLS();
             break;
         case 2:
-            //abre a pagina de registo de utilizador
+            // abre a pagina de registo de utilizador
             SysCLS();
             PRegistarUser();
             SysPause();
@@ -141,7 +142,7 @@ void MainMenu()
             break;
 
         case 0:
-            //fecha o sistema
+            // fecha o sistema
             SysCLS();
             printf("\n\t\t\t\t\t Obrigado por usar o sistema\n\n");
             delay(1);
@@ -149,7 +150,7 @@ void MainMenu()
             break;
 
         default:
-            //default erro
+            // default erro
             SysCLS();
             printf("\n\t\t\t\t\t\tINSIRA UMA OPÇAO VÁLIDA!!\n\n");
             SysPause();
@@ -157,6 +158,6 @@ void MainMenu()
             return;
         }
     }
-    
+
     SysPause();
 }

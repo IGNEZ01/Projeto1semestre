@@ -83,11 +83,9 @@ void NovoAluguer(int id)
     int duracao_aluguer = 0;
 
     // instancia o ficheiro
-    FILE *file; 
-    
-    file = fopen("carros.dat", "rb+");
+    FILE *file;
 
-    
+    file = fopen("carros.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
@@ -95,8 +93,6 @@ void NovoAluguer(int id)
         fprintf(stderr, "\t\t\t\t\t\nERRO AO ABRIR O FICHEIRO carros.dat\n\n");
         exit(1);
     }
-    
-    
 
     while (fread(&carro, sizeof(Carro), 1, file))
     {
@@ -114,17 +110,15 @@ void NovoAluguer(int id)
             carro.dias_alugado = carro.dias_alugado + duracao_aluguer;
             carro.id_alugado = id;
             carro.estado_alugado = 1;
-            
+
             fseek(file, -sizeof(Carro), SEEK_CUR);
             fwrite(&carro, sizeof(Carro), 1, file);
             SysPause();
 
             break;
         }
-                
     }
-    
-    
+
     fclose(file);
     SysPause();
 }
@@ -184,7 +178,9 @@ void RemoverAluguer(int id)
                 fclose(file);
                 SysCLS();
                 break;
-            }else{
+            }
+            else
+            {
 
                 SysCLS();
                 printf("\t\t\t\t\t  =========CARRO NAO ENCONTRADO=======\n");
@@ -196,9 +192,7 @@ void RemoverAluguer(int id)
 
             break;
         }
-        
     }
-
 }
 
 void RegistarCarro()
@@ -235,7 +229,7 @@ void RegistarCarro()
     scanf("%d", &carro.celindrada);
 
     getchar();
- 
+
     printf("\t\t\t\t\t Tipo de Combustivel: \n");
 
     printf("\t\t\t\t\t ");
@@ -278,7 +272,7 @@ void RegistarCarro()
     carro.id = (int)time(NULL);
 
     // instancia o ficheiro
-    FILE* outfile;
+    FILE *outfile;
 
     // abre o ficheiro em modo de
     outfile = fopen("carros.dat", "a+");
@@ -297,34 +291,32 @@ void RegistarCarro()
     fclose(outfile);
 }
 
-
 void EliminarCarro()
 {
-    	
+
     FILE *file;
 
-    file = fopen("carros.dat","rb+");
+    file = fopen("carros.dat", "rb+");
 
     Carro carro;
 
     long int controleFread;
-    int id=1;
+    int id = 1;
     char matricula[10];
 
-    if (file == NULL) 
+    if (file == NULL)
     {
         printf("Could not open file.\n");
         return;
     }
     else
     {
-      printf("\t\t\t\t\t  =========REMOVER CARRO=======\n");
-      
-    } 
+        printf("\t\t\t\t\t  =========REMOVER CARRO=======\n");
+    }
 
     printf("\t\t\t\t\tDigite a matricula do carro que deseja remover: \n");
     scanf("%s", matricula);
-    FILE *file2 = fopen("temp.dat","ab+");
+    FILE *file2 = fopen("temp.dat", "ab+");
     if (file2 == NULL)
     {
         printf("\t\t\t\t\t  =========ERRO AO CRIAR ARQUIVO=======\n");
@@ -334,22 +326,17 @@ void EliminarCarro()
         rewind(file);
         while (fread(&carro, sizeof(Carro), 1, file) == 1)
         {
-        if (strcmp(carro.matricula,matricula) != 0)// se a matricula for diferente do que o utilizador meteu
-        {
-            fwrite(&carro, sizeof(carro), 1, file2);// escreve a estrutura no arquivo temporario
-        }
-        
+            if (strcmp(carro.matricula, matricula) != 0) // se a matricula for diferente do que o utilizador meteu
+            {
+                fwrite(&carro, sizeof(carro), 1, file2); // escreve a estrutura no arquivo temporario
+            }
         }
     }
 
     fclose(file);
     fclose(file2);
-    
-    
-    remove("carros.dat");
-    rename("temp.dat","carros.dat");
-    printf("\t\t\t\t\t\tCarro removido com sucesso!");
-    
-    
 
+    remove("carros.dat");
+    rename("temp.dat", "carros.dat");
+    printf("\t\t\t\t\t\tCarro removido com sucesso!");
 }

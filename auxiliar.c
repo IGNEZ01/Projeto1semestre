@@ -11,34 +11,34 @@ void delay(int number_of_seconds)
     clock_t start_time = clock();
 
     // em loop enquanto o tempo desejado nao é atingido
-    while (clock() < start_time + milli_seconds);
+    while (clock() < start_time + milli_seconds)
+        ;
 }
 
+void SysPause()
+{
 
-void SysPause(){
+#ifdef _WIN32
+    system("pause");
+#else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__))
+    getchar();
 
-    #ifdef _WIN32
-        system("pause");
-    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__))
-        getchar();
-    
-    #endif
-
+#endif
 }
 
-void SysCLS(){
+void SysCLS()
+{
 
-    #ifdef _WIN32
-        system("cls");
-    #else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__))
-        system("clear");
-    
-    #endif
+#ifdef _WIN32
+    system("cls");
+#else defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__))
+    system("clear");
 
-
+#endif
 }
 
-void MensagemErro(int erro){
+void MensagemErro(int erro)
+{
 
     switch (erro)
     {
@@ -48,9 +48,8 @@ void MensagemErro(int erro){
         delay(1);
         MainMenu();
         break;
-    
+
     default:
         break;
     }
-
 }
