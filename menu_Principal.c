@@ -26,7 +26,7 @@ void Login()
     FILE *outfile;
 
     // abre o ficheiro no modo de
-    outfile = fopen("accounts.dat", "a+");
+    outfile = fopen("accounts.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (outfile == NULL)
@@ -48,7 +48,7 @@ void Login()
     printf("\t\t\t\t\t      ");
 
     // "scanf" para a password em que so aparecem "*"
-    while (1)
+    /*while (1)
     {
         ch = getchar();
         if (ch == 13)
@@ -73,8 +73,9 @@ void Login()
             password[i++] = ch;
             printf("*");
         }
-    }
+    }*/
     // fim de "scanf" da password.
+    scanf("%s", password);
 
     // escrita
     printf("\n");

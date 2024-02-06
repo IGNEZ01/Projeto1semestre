@@ -13,7 +13,7 @@ void ListarCarrosDisponiveis()
     FILE *file;
 
     // Abre o ficheiro "accounts.dat"
-    file = fopen("carros.dat", "a+");
+    file = fopen("carros.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
@@ -44,7 +44,7 @@ void ListarCarros()
     FILE *file;
 
     // Abre o ficheiro "accounts.dat"
-    file = fopen("carros.dat", "a+");
+    file = fopen("carros.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)
@@ -275,7 +275,7 @@ void RegistarCarro()
     FILE *outfile;
 
     // abre o ficheiro em modo de
-    outfile = fopen("carros.dat", "a+");
+    outfile = fopen("carros.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (outfile == NULL)

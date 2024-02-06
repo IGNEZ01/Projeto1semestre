@@ -133,7 +133,7 @@ void PAdmin(int id)
     FILE *file;
 
     // abre o ficheiro no modo de
-    file = fopen("accounts.dat", "a+");
+    file = fopen("accounts.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (file == NULL)

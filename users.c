@@ -99,7 +99,7 @@ void PRegistarUser()
     printf("1 - Admin  |  0 - Cliente");
 
     scanf("%d", &user.permicoes);
-
+    fflush(stdin);
     if (user.permicoes == 1)
     {
         printf("Insira a chave do sistema:");
@@ -118,19 +118,22 @@ void PRegistarUser()
         }
     }
 
-    printf("\npassword:\n");
+    printf("\npassword: ");
 
     // "scanf" para a password em que so aparecem "*"
-    while (1)
+    /*while (1)
     {
-        fflush(stdin);
+        printf("inicio");
+
         ch = getchar();
-        if (ch == 13)
+        fflush(stdin);
+        printf("ch %d \n", ch);
+        if (ch == 10)
         {
             user.password[i] = '\0';
             break;
         }
-        else if (ch == 8)
+        else if (ch == 27)
         {
             if (i > 0)
             {
@@ -145,12 +148,14 @@ void PRegistarUser()
         else
         {
             user.password[i++] = ch;
+            fflush(stdin);
             printf("*");
         }
     }
-    // fim de "scanf" da password.
-
+    // fim de "scanf" da password.*/
+    scanf("%s", user.password);
     printf("\n");
+    printf("debug %s", user.password);
 
     // user.id = rand()%100;
     user.id = (int)time(NULL);
@@ -159,7 +164,7 @@ void PRegistarUser()
     FILE *outfile;
 
     // abre o ficheiro em modo de
-    outfile = fopen("accounts.dat", "a+");
+    outfile = fopen("accounts.dat", "rb+");
 
     // exceçao para qualquer erro ao abrir o ficheiro
     if (outfile == NULL)
