@@ -44,7 +44,7 @@ void dashboardSistema(){
     {
 
         quantidade_carros = quantidade_carros + 1;
-        cache_faturacao = read_car.preco_diario * read_car.dias_alugado;
+        faturacao_total = read_car.preco_diario * read_car.dias_alugado;
 
         if (cache_carro_mais_alugado < read_car.dias_alugado)
         {
@@ -53,7 +53,7 @@ void dashboardSistema(){
         }
          
 
-        faturacao_total = faturacao_total + cache_faturacao;
+        //faturacao_total = faturacao_total + cache_faturacao;
 
     }
 
@@ -161,7 +161,7 @@ void PAdmin(int id)
         printf("\t\t\t\t\t           4. Registar novo carro\n");
         printf("\t\t\t\t\t           5. Remover Carro\n");
         printf("\t\t\t\t\t           6. Dashboard\n");
-        printf("\t\t\t\t\t           7. Informaçoes de Utilizador\n");
+        printf("\t\t\t\t\t           7. Informacoes de Utilizador\n");
         printf("\t\t\t\t\t           8. Remover aluguer\n");
         printf("\t\t\t\t\t           0. Terminar Sessao\n");
         printf("\t\t\t\t\t============================================\n");
